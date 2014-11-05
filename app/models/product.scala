@@ -6,8 +6,22 @@ case class Product( price: Int,
                  availability: Boolean)
 
 object ProductJsonFormats {
-  import play.api.libs.json.Json
+  import play.api.libs.json._
+  import play.api.libs.functional.syntax._
 
-  // Generates Writes and Reads for Feed and User thanks to Json Macros
-  implicit val productFormat = Json.format[Product]
+  implicit val productReads = (
+      (__ \ "price").read[Int] and
+      (__ \ "name").read[String] and
+      (__ \ "weight").read[Int] and
+      (__ \ "availability").read[Boolean]
+    )(Product)
+
+  implicit val productWrites = (
+      (__ \ "price").write[Int] and
+      (__ \ "name").write[String] and
+      (__ \ "weight").write[Int] and
+      (__ \ "availability").write[Boolean]
+    )(unlift(Product.unapply))
+
+  implicit val productFormat = Format(productReads, productWrites)
 }
