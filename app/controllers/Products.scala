@@ -11,7 +11,7 @@ import play.api.mvc._
 import play.api.libs.json._
 
 /**
- * The Users controllers encapsulates the Rest endpoints and the interaction with the MongoDB, via ReactiveMongo
+ * The Products controllers encapsulates the Rest endpoints and the interaction with the MongoDB, via ReactiveMongo
  * play plugin. This provides a non-blocking driver for mongoDB as well as some useful additions for handling JSon.
  * @see https://github.com/ReactiveMongo/Play-ReactiveMongo
  */
@@ -42,7 +42,7 @@ class Products extends Controller with MongoController {
       // find all
       find(Json.obj("availability" -> true)).
       // sort them by creation date
-      sort(Json.obj("created" -> -1)).
+//      sort(Json.obj("created" -> -1)).
       // perform the query and get a cursor of JsObject
       cursor[Product]
 
@@ -58,6 +58,18 @@ class Products extends Controller with MongoController {
       products =>
         Ok(products(0))
     }
+  }
+
+  def createProduct = Action.async(parse.json) {
+    request =>
+      request.body.validate[Product].map {
+        product =>
+          collection.insert[Product](product).map {
+            lastError =>
+              logger.debug(s"Successfully inserted with LastError: $lastError")
+              Created(s"Product Created")
+          }
+      }.getOrElse(Future.successful(BadRequest("invalid json")))
   }
 
 }

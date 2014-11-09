@@ -18,7 +18,7 @@ angular.module('myApp.routeConfig', ['ngRoute'])
             .when('/', {
                 templateUrl: '/assets/partials/view.html'
             })
-            .when('/users/create', {
+            .when('/order/create', {
                 templateUrl: '/assets/partials/create.html'
             })
             .otherwise({redirectTo: '/'})

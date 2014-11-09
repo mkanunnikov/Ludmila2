@@ -23,5 +23,5 @@ object ProductJsonFormats {
       (__ \ "availability").write[Boolean]
     )(unlift(Product.unapply))
 
-  implicit val productFormat = Format(productReads, productWrites)
+//  implicit val productFormat = Format(productReads, productWrites)
 }

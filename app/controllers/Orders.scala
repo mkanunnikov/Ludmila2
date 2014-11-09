@@ -11,7 +11,7 @@ import play.api.mvc._
 import play.api.libs.json._
 
 /**
- * The Users controllers encapsulates the Rest endpoints and the interaction with the MongoDB, via ReactiveMongo
+ * The Orders controllers encapsulates the Rest endpoints and the interaction with the MongoDB, via ReactiveMongo
  * play plugin. This provides a non-blocking driver for mongoDB as well as some useful additions for handling JSon.
  * @see https://github.com/ReactiveMongo/Play-ReactiveMongo
  */
@@ -36,6 +36,30 @@ class Orders extends Controller with MongoController {
   import models._
   import models.OrderJsonFormats._
 
+  def findOrders = Action.async {
+    // let's do our query
+    val cursor: Cursor[Order] = collection.
+      // find all
+      find(Json.obj("availability" -> true)).
+      // sort them by creation date
+      //      sort(Json.obj("created" -> -1)).
+      // perform the query and get a cursor of JsObject
+      cursor[Order]
+
+    // gather all the JsObjects in a list
+    val futureOrdersList: Future[List[Order]] = cursor.collect[List]()
+
+    // transform the list into a JsArray
+    val futureOrdersJsonArray: Future[JsArray] = futureOrdersList.map { orders =>
+      Json.arr(orders)
+    }
+    // everything's ok! Let's reply with the array
+    futureOrdersJsonArray.map {
+      orders =>
+        Ok(orders(0))
+    }
+  }
+
   def createOrder = Action.async(parse.json) {
     request =>
     /*
@@ -47,8 +71,8 @@ class Orders extends Controller with MongoController {
      */
       request.body.validate[Order].map {
         order =>
-        // `user` is an instance of the case class `models.User`
-          collection.insert(order).map {
+        // `order` is an instance of the case class `models.Order`
+          collection.insert[Order](order).map {
             lastError =>
               logger.debug(s"Successfully inserted with LastError: $lastError")
               Created(s"Order Created")
