@@ -2,6 +2,7 @@ package controllers
 
 import play.modules.reactivemongo.MongoController
 import play.modules.reactivemongo.json.collection.JSONCollection
+import reactivemongo.bson.BSONDocument
 import scala.concurrent.Future
 import reactivemongo.api.Cursor
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -40,7 +41,7 @@ class Orders extends Controller with MongoController {
     // let's do our query
     val cursor: Cursor[Order] = collection.
       // find all
-      find(Json.obj("availability" -> true)).
+      find(Json.obj()).
       // sort them by creation date
       //      sort(Json.obj("created" -> -1)).
       // perform the query and get a cursor of JsObject

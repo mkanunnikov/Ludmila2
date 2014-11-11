@@ -11,7 +11,7 @@ GET     /randomUUID                 @controllers.Application.randomUUID
 # Product management API
 GET     /products                    @controllers.Products.findProducts
 POST    /createProduct               @controllers.Products.createProduct
-GET     /order                       @controllers.Orders.findOrders
+GET     /orders                      @controllers.Orders.findOrders
 POST    /createOrder                 @controllers.Orders.createOrder
 
 # Map static resources from the /public folder to the /assets URL path

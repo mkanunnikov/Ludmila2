@@ -1,7 +1,5 @@
 package controllers
 
-import org.joda.time.DateTime
-
 import scala.concurrent._
 import duration._
 import org.specs2.mutable._
@@ -11,23 +9,22 @@ import play.api.test._
 import play.api.test.Helpers._
 import java.util.concurrent.TimeUnit
 
-
 /**
- * You can mock out a whole application including requests, plugins etc.
- * For more information, consult the wiki.
+ * Created by Max on 11.11.2014.
  */
-class OrdersIT extends Specification {
+class ProductsIT extends Specification {
 
   val timeout: FiniteDuration = FiniteDuration(5, TimeUnit.SECONDS)
 
-  "Orders" should {
+  "Products" should {
 
     "insert a valid json" in {
       running(FakeApplication()) {
-        val request = FakeRequest.apply(POST, "/createOrder").withJsonBody(Json.obj(
-          "products" -> Map("prod1"->11,"prod2"->22),
-          "email" -> "email@mail.ru",
-          "timestamp" -> DateTime.now()))
+        val request = FakeRequest.apply(POST, "/createProduct").withJsonBody(Json.obj(
+          "name" -> "product name",
+          "weight" -> 12,
+          "availability" -> true,
+          "price" -> 1))
         val response = route(request)
         response.isDefined mustEqual true
         val result = Await.result(response.get, timeout)
@@ -37,10 +34,11 @@ class OrdersIT extends Specification {
 
     "fail inserting a non valid json" in {
       running(FakeApplication()) {
-        val request = FakeRequest.apply(POST, "/createOrder").withJsonBody(Json.obj(
-          "firstName" -> 98,
-          "lastName" -> "London",
-          "age" -> 27))
+        val request = FakeRequest.apply(POST, "/createProduct").withJsonBody(Json.obj(
+          "name" -> 123,
+          "weight" -> 12,
+          "availability" -> true,
+          "price" -> 1))
         val response = route(request)
         response.isDefined mustEqual true
         val result = Await.result(response.get, timeout)
