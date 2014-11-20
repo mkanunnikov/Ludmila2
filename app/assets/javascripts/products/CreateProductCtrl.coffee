@@ -1,7 +1,6 @@
-
 class CreateProductCtrl
 
-  constructor: (@$log, @$location,  @ProductService) ->
+  constructor: (@$log, @$location, @ProductService) ->
     @$log.debug "constructing CreateProductController"
     @product = {}
 

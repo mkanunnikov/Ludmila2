@@ -7,7 +7,7 @@ class CreateOrderCtrl
 
     createOrder: () ->
         @$log.debug "createOrder()"
-        @order.active = true
+        @order.timestamp = 0
         @OrderService.createOrder(@order)
         .then(
             (data) =>

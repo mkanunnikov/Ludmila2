@@ -13,13 +13,13 @@ class OrderService
 
     @$http.get("/orders")
     .success((data, status, headers) =>
-      @$log.info("Successfully listed Orders - status #{status}")
-      deferred.resolve(data)
-    )
+        @$log.info("Successfully listed Orders - status #{status}")
+        deferred.resolve(data)
+      )
     .error((data, status, headers) =>
-      @$log.error("Failed to list Orders - status #{status}")
-      deferred.reject(data);
-    )
+        @$log.error("Failed to list Orders - status #{status}")
+        deferred.reject(data);
+      )
     deferred.promise
 
   createOrder: (order) ->
@@ -28,13 +28,13 @@ class OrderService
 
     @$http.post('/createOrder', order)
     .success((data, status, headers) =>
-      @$log.info("Successfully created Order - status #{status}")
-      deferred.resolve(data)
-    )
+        @$log.info("Successfully created Order - status #{status}")
+        deferred.resolve(data)
+      )
     .error((data, status, headers) =>
-      @$log.error("Failed to create order - status #{status}")
-      deferred.reject(data);
-    )
+        @$log.error("Failed to create order - status #{status}")
+        deferred.reject(data);
+      )
     deferred.promise
 
 servicesModule.service('OrderService', OrderService)

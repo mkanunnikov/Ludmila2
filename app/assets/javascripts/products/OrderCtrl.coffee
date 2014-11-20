@@ -1,4 +1,3 @@
-
 class OrderCtrl
 
   constructor: (@$log, @OrderService) ->

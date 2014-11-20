@@ -1,4 +1,3 @@
-
 class ProductCtrl
 
   constructor: (@$log, @ProductService) ->
