@@ -23,6 +23,8 @@ angular.module('myApp.routeConfig', ['ngRoute'])
             })
             .otherwise({redirectTo: '/'})
 
+app.config(($logProvider)-> $logProvider.debugEnabled(true))
+
 @commonModule = angular.module('myApp.common', [])
 @controllersModule = angular.module('myApp.controllers', [])
 @servicesModule = angular.module('myApp.services', [])

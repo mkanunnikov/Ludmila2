@@ -37,6 +37,10 @@ class Products extends Controller with MongoController {
   import models.ProductJsonFormats._
 
   def findProducts = Action.async {
+    logger.info("findProducts1")
+    logger.debug(s"findProducts2")
+    logger.info(s"findProducts3")
+
     // let's do our query
     val cursor: Cursor[Product] = collection.
       // find all
@@ -61,9 +65,12 @@ class Products extends Controller with MongoController {
   }
 
   def createProduct = Action.async(parse.json) {
+    logger.debug(s"createProduct")
     request =>
+      logger.debug(s"createProduct r= $request")
       request.body.validate[Product].map {
         product =>
+          logger.debug(s"createProduct p= $product")
           collection.insert[Product](product).map {
             lastError =>
               logger.debug(s"Successfully inserted with LastError: $lastError")

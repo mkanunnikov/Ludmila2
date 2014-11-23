@@ -2,11 +2,12 @@ import sbt._
 
 object ApplicationBuild extends Build {
 
-  val appName         = "modern-web-template"
+  val appName         = "Ludmila"
   val appVersion      = "0.1-SNAPSHOT"
 
   val appDependencies = Seq(
     "com.google.inject" % "guice" % "3.0",
+    "org.webjars" % "angularjs" % "1.2.19",
     "javax.inject" % "javax.inject" % "1",
     "org.reactivemongo" %% "reactivemongo" % "0.10.0",
     "org.reactivemongo" %% "play2-reactivemongo" % "0.10.2",

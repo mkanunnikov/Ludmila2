@@ -17,6 +17,7 @@ class Application @Inject() (uuidGenerator: UUIDGenerator) extends Controller {
 
   def index = Action {
     logger.info("Serving index page...")
+    logger.debug("Serving index page...")
     Ok(views.html.index())
   }
 

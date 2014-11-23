@@ -11,14 +11,14 @@ class ProductService
     deferred = @$q.defer()
 
     @$http.get("/products")
-    .success((data, status, headers) =>
-      @$log.info("Successfully listed Products - status #{status}")
-      deferred.resolve(data)
-    )
-    .error((data, status, headers) =>
-      @$log.error("Failed to list Products - status #{status}")
-      deferred.reject(data);
-    )
+      .success((data, status, headers) =>
+        @$log.info("Successfully listed Products - status #{status}")
+        deferred.resolve(data)
+      )
+      .error((data, status, headers) =>
+        @$log.error("Failed to list Products - status #{status}")
+        deferred.reject(data);
+      )
     deferred.promise
 
   createProduct: (product) ->
@@ -26,14 +26,14 @@ class ProductService
     deferred = @$q.defer()
 
     @$http.post('/createProduct', product)
-    .success((data, status, headers) =>
-      @$log.info("Successfully created Product - status #{status}")
-      deferred.resolve(data)
-    )
-    .error((data, status, headers) =>
-      @$log.error("Failed to create product - status #{status}")
-      deferred.reject(data);
-    )
+      .success((data, status, headers, config) =>
+        @$log.info("Successfully created Product - status #{status}")
+        deferred.resolve(data)
+      )
+      .error((data, status, headers, config) =>
+        @$log.error("Failed to create product - status #{status}")
+        deferred.reject(data);
+      )
     deferred.promise
 
 servicesModule.service('ProductService', ProductService)
