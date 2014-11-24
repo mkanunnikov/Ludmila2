@@ -60,12 +60,14 @@
             <legend class="sm-col-12">Basic Information</legend>
 
             <div class="form-group">
-                <label id="lbl_product" for="product" class="col-sm-4 control-label">Product</label>
+                <label id="lbl_product" class="col-sm-4 control-label">Products</label>
 
-                <div class="col-sm-8">
-                    <input type="text" class="form-control" name="product" id="product" placeholder=""
-                           ng-model="coc.order.product">
+                <div class="col-sm-8" ng-controller="ProductCtrl as pc" ng-repeat="product in pc.order.products">
+                    <!--<input type="text" class="form-control" name="product" id="product" placeholder=""-->
+                           <!--ng-model="coc.order.product">-->
+                    {{product.name}} - {{product.number}}
                 </div>
+                <input type="hidden" value="{{pc.order.products}}" ng-model="coc.order.products"/>
             </div>
 
             <div class="form-group">

@@ -1,8 +1,9 @@
 class ProductCtrl
 
-  constructor: (@$log, @ProductService) ->
+  constructor: (@$log, @$location,  @ProductService) ->
     @$log.debug "constructing ProductController"
     @products = []
+    @order = {products:[],email:'',timestamp:0}
     @getAllProducts()
 
   getAllProducts: () ->
@@ -18,5 +19,12 @@ class ProductCtrl
       @$log.error "Unable to get Products: #{error}"
     )
 
+  prepareOrder: () ->
+    @$log.debug "prepareOrder(#{@products})"
+    @order.products = for name, number of @products #when number > 0
+      name: number
+    @$log.debug "prepared order #{@order.products}"
+    @order.timestamp = Date.now()
+    @$location.path("/order/create")
 
 controllersModule.controller('ProductCtrl', ProductCtrl)

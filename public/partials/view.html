@@ -22,7 +22,7 @@
                 <hr>
             </div>
 
-            <form ng-controller="CreateOrderCtrl as coc" ng-submit="coc.prepareOrder()" ng-init="coc.orderItems=[{}]">
+            <form ng-submit="pc.prepareOrder()">
             <table id="product_list" class="table table-striped">
                 <thead>
                 <tr>
@@ -33,10 +33,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="prd in pc.products | filter:searchText" ng-repeat="orderItem in orderItems">
+                <tr ng-repeat="prd in pc.products | filter:searchText">
                     <td>
                         {{ prd.name }}
-                        <input type="hidden" value="{{ prd.name }}" ng-model="orderItem.name"/>
+                        <!--<input type="hidden" value="{{ prd.name }}" ng-model="orderItem.name"/>-->
                     </td>
                     <td>
                         {{ prd.weight }}
@@ -45,7 +45,7 @@
                         {{ prd.price }}
                     </td>
                     <td>
-                        <input type="number" min="0" max="10" value="0" ng-model="orderItem.number"/>
+                        <input class="form-control" type="number" ng-model="prd.number"/>
                     </td>
                 </tr>
                 <tr ng-hide="pc.products.length">
