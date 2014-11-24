@@ -13,7 +13,7 @@
             <div class="form-group">
                 <h3>
                     Products
-                    <a ng-href="/#/order/create" class="btn btn-primary pull-right" id="btn_order_create">Order</a>
+                    <!--<a ng-href="/#/order/create" class="btn btn-primary pull-right" id="btn_order_create">Order</a>-->
                 </h3>
                 <hr>
             </div>
@@ -22,7 +22,7 @@
                 <hr>
             </div>
 
-            <form ng-controller="OrderCtrl as oc">
+            <form ng-controller="CreateOrderCtrl as coc" ng-submit="coc.prepareOrder()" ng-init="coc.orderItems=[{}]">
             <table id="product_list" class="table table-striped">
                 <thead>
                 <tr>
@@ -33,9 +33,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="prd in pc.products | filter:searchText">
+                <tr ng-repeat="prd in pc.products | filter:searchText" ng-repeat="orderItem in orderItems">
                     <td>
                         {{ prd.name }}
+                        <input type="hidden" value="{{ prd.name }}" ng-model="orderItem.name"/>
                     </td>
                     <td>
                         {{ prd.weight }}
@@ -44,7 +45,7 @@
                         {{ prd.price }}
                     </td>
                     <td>
-                        <input type="number" min="1" max="10" value="0" ng-model="oc.">
+                        <input type="number" min="0" max="10" value="0" ng-model="orderItem.number"/>
                     </td>
                 </tr>
                 <tr ng-hide="pc.products.length">
@@ -54,6 +55,12 @@
                 </tr>
                 </tbody>
             </table>
+                <div class="form-group">
+                    <div class="col-sm-offset-4 col-sm-8 text-right">
+                        <button type="submit" class="btn btn-success" id="ord_create">Create Order</button>
+                    </div>
+                </div>
+
             </form>
 
             <hr>

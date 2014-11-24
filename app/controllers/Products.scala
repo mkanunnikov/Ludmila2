@@ -37,10 +37,7 @@ class Products extends Controller with MongoController {
   import models.ProductJsonFormats._
 
   def findProducts = Action.async {
-    logger.info("findProducts1")
-    logger.debug(s"findProducts2")
-    logger.info(s"findProducts3")
-
+    logger.debug(s"findProducts")
     // let's do our query
     val cursor: Cursor[Product] = collection.
       // find all
