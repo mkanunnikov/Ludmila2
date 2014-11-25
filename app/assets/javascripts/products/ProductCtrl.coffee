@@ -1,9 +1,10 @@
 class ProductCtrl
 
-  constructor: (@$log, @$location,  @ProductService) ->
+  constructor: (@$log, @$location, @$scope, @ProductService) ->
     @$log.debug "constructing ProductController"
     @products = []
     @order = {products:[],email:'',timestamp:0}
+    @$scope.test1 = 'test'
     @getAllProducts()
 
   getAllProducts: () ->

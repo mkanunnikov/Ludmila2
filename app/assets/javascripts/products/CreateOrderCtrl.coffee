@@ -1,7 +1,7 @@
 
 class CreateOrderCtrl
 
-    constructor: (@$log, @$location,  @OrderService) ->
+    constructor: (@$log, @$location, @$scope,  @OrderService) ->
         @$log.debug "constructing CreateOrderController"
         @order = {}
 
