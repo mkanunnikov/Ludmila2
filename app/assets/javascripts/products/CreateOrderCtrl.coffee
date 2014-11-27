@@ -2,16 +2,17 @@
 class CreateOrderCtrl
 
     constructor: (@$log, @$location, @Order, @OrderService) ->
-#        @test1 = @Test.get()
         @order = @Order.get()
-#        @order = {products:[{name:'prod1',number:11}],email:'1@1.com',timestamp:0}
         @$log.debug "constructing CreateOrderController"
         @$log.debug "prepared products #{@order.products}"
 
     createOrder: () ->
         @$log.debug "createOrder()"
-        @order.timestamp = Date.now()
-        @OrderService.createOrder(@order)
+        newOrder = {products:['nam1':1], email:'qwewq', timestamp:0}
+        newOrder.timestamp = Date.now()
+        newOrder.email = @order.email
+        newOrder.products[name] = number for {name, number} in @order.products
+        @OrderService.createOrder(newOrder)
         .then(
             (data) =>
                 @$log.debug "Promise returned #{data} Order"
@@ -20,7 +21,7 @@ class CreateOrderCtrl
             ,
             (error) =>
                 @$log.error "Unable to create Order: #{error}"
-            )
+        )
 
 #    prepareOrder: () ->
 #        @$log.debug "prepareOrder()"

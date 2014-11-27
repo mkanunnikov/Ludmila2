@@ -9,6 +9,8 @@ import play.api.test._
 import play.api.test.Helpers._
 import java.util.concurrent.TimeUnit
 
+import scala.util.Random
+
 /**
  * Created by Max on 11.11.2014.
  */
@@ -20,8 +22,10 @@ class ProductsIT extends Specification {
 
     "insert a valid json" in {
       running(FakeApplication()) {
+        val productID = Random.nextString(4)
         val request = FakeRequest.apply(POST, "/createProduct").withJsonBody(Json.obj(
-          "name" -> "product name",
+          "name" -> s"product name $productID",
+          "description" -> "product description product description product description product description",
           "weight" -> 12,
           "availability" -> true,
           "price" -> 1))
@@ -36,6 +40,7 @@ class ProductsIT extends Specification {
       running(FakeApplication()) {
         val request = FakeRequest.apply(POST, "/createProduct").withJsonBody(Json.obj(
           "name" -> 123,
+          "description" -> "product description product description product description product description",
           "weight" -> 12,
           "availability" -> true,
           "price" -> 1))
