@@ -37,7 +37,7 @@ class Products extends Controller with MongoController {
   import models.ProductJsonFormats._
 
   def findProducts = Action.async {
-    logger.debug(s"findProducts")
+    logger.debug(s"findProducts Start")
     // let's do our query
     val cursor: Cursor[Product] = collection.
       // find all
@@ -57,6 +57,7 @@ class Products extends Controller with MongoController {
     // everything's ok! Let's reply with the array
     futureProductsJsonArray.map {
       products =>
+        logger.debug(s"findProducts OK")
         Ok(products(0))
     }
   }

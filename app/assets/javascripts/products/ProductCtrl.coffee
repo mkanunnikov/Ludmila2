@@ -1,9 +1,11 @@
 class ProductCtrl
 
-  constructor: (@$log, @$location,  @ProductService) ->
+  constructor: (@$log, @$location, @Order, @ProductService) ->
+#    @test1 = @Test.get()
+    @order = @Order.get()
     @$log.debug "constructing ProductController"
     @products = []
-    @order = {products:[],email:'',timestamp:0}
+#    @order = {products:[],email:'',timestamp:0}
     @getAllProducts()
 
   getAllProducts: () ->
@@ -20,11 +22,12 @@ class ProductCtrl
     )
 
   prepareOrder: () ->
-    @$log.debug "prepareOrder(#{@products})"
-    @order.products = for name, number of @products #when number > 0
-      name: number
-    @$log.debug "prepared order #{@order.products}"
-    @order.timestamp = Date.now()
+    @$log.debug "all Products(#{@products})"
+    @order.products = (product for product in @products when product.number > 0)
+    @$log.debug "prepared products #{@order.products}"
+    @$log.debug "prepared products #{@order.products.length}"
+    @Order.set(@order)
+#    @Test.set(@test1)
     @$location.path("/order/create")
 
 controllersModule.controller('ProductCtrl', ProductCtrl)

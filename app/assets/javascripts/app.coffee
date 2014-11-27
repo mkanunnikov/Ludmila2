@@ -25,6 +25,24 @@ angular.module('myApp.routeConfig', ['ngRoute'])
 
 app.config(($logProvider)-> $logProvider.debugEnabled(true))
 
+app.factory("Order", ->
+  order = {}
+  set = (data) ->
+      order = data
+  get = ->
+      order
+  {set:set,get:get}
+)
+
+#app.factory("Test", ->
+#  test = 'TEST'
+#  set = (data) ->
+#      test = data
+#  get = ->
+#      test
+#  {set:set,get:get}
+#)
+
 @commonModule = angular.module('myApp.common', [])
 @controllersModule = angular.module('myApp.controllers', [])
 @servicesModule = angular.module('myApp.services', [])
