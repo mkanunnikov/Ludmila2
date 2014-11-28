@@ -4,7 +4,9 @@ import org.joda.time.DateTime
 
 import scala.collection.immutable.HashMap
 
-case class Order( products: Map[String, Int], email: String, timestamp: DateTime)
+case class Order(
+                  products: Map[String, Int],
+                  email: String, timestamp: DateTime)
 
 object OrderJsonFormats {
   import play.api.libs.json._

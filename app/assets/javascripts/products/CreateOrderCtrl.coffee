@@ -8,25 +8,39 @@ class CreateOrderCtrl
 
     createOrder: () ->
         @$log.debug "createOrder()"
-        newOrder = {products:['nam1':1], email:'qwewq', timestamp:0}
+        newOrder = {products:{}, email:'qwewq', timestamp:0}
+#        newOrder = {email:'qwewq', timestamp:0}
         newOrder.timestamp = Date.now()
         newOrder.email = @order.email
         newOrder.products[name] = number for {name, number} in @order.products
+#        products = [{
+#            "price": 1,
+#            "description": "product description product description product description product description",
+#            "name": "product_name1",
+#            "weight": 12,
+#            "availability": true,
+#            "number": 2
+#        },{
+#            "price": 2,
+#            "description": "product description product description product description product description",
+#            "name": "product_name2",
+#            "weight": 12,
+#            "availability": true,
+#            "number": 5
+#        }]
+#        newProducts = {}
+#        newProducts[name] = number for {name, number} in products
+#        newOrder.products = newProducts
+#        @$log.debug "Test: #{key}-#{value}" for key,value of newProducts
         @OrderService.createOrder(newOrder)
         .then(
             (data) =>
                 @$log.debug "Promise returned #{data} Order"
-                @order = data
+                newOrder = data
                 @$location.path("/")
             ,
             (error) =>
                 @$log.error "Unable to create Order: #{error}"
         )
-
-#    prepareOrder: () ->
-#        @$log.debug "prepareOrder()"
-#        @products
-#        @order.timestamp = Date.now()
-#        @$location.path("/order/create")
 
 controllersModule.controller('CreateOrderCtrl', CreateOrderCtrl)

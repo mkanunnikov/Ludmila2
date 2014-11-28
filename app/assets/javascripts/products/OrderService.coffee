@@ -18,7 +18,7 @@ class OrderService
       )
     .error((data, status, headers) =>
         @$log.error("Failed to list Orders - status #{status}")
-        deferred.reject(data);
+        deferred.reject(data)
       )
     deferred.promise
 
@@ -33,7 +33,7 @@ class OrderService
       )
     .error((data, status, headers) =>
         @$log.error("Failed to create order - status #{status}")
-        deferred.reject(data);
+        deferred.reject(data)
       )
     deferred.promise
 
